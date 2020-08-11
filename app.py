@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from flask import Flask, request, jsonify
 from flask.logging import create_logger
 import logging
@@ -20,7 +22,8 @@ def scale(payload):
 
 @app.route("/")
 def home():
-    html = f"<h3>Sklearn Prediction Home</h3>"
+    title = "Sklearn Prediction Home"
+    html = f"<h3>{title}</h3>"
     return html.format(format)
 
 @app.route("/predict", methods=['POST'])
@@ -62,7 +65,8 @@ def predict():
     scaled_payload = scale(inference_payload)
     # get an output prediction from the pretrained model, clf
     prediction = list(clf.predict(scaled_payload))
-    # TO DO:  Log the output prediction value
+    # Log the output prediction value - done below
+    LOG.info(f"Prediction Data - \n{prediction}")
     return jsonify({'prediction': prediction})
 
 if __name__ == "__main__":

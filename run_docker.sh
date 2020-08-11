@@ -12,4 +12,9 @@ sudo docker image ls
 
 # Step 3: 
 # Run flask app
-sudo docker run -d --name ml-microservice -p 8000:80 javiercaparo/udacity-project-ml-microservice-docker-kubernetes
+sudo docker run -it --name ml-microservice -p 8000:80 javiercaparo/udacity-project-ml-microservice-docker-kubernetes
+#sudo docker run -d --name ml-microservice -p 8000:80 javiercaparo/udacity-project-ml-microservice-docker-kubernetes
+
+# Step 4: 
+# Verify that container is running
+# sudo docker ps

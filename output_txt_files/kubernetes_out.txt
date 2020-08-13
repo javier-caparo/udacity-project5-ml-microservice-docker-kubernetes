@@ -10,6 +10,10 @@ Forwarding from 127.0.0.1:8000 -> 80
 Forwarding from [::1]:8000 -> 80
 
 
+Handling connection for 8000
+Handling connection for 8000
+
+
 Executing a prediction with "make_prediction.sh"
 ==================================================
 [javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ ./make_prediction.sh
@@ -19,6 +23,12 @@ Port: 8000
     20.35373177134412
   ]
 }
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
 
 Checking the log inside the Kubernete POD
 ==================================================

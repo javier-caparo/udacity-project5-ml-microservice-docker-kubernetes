@@ -1,0 +1,77 @@
+Hpw to install minikube into a  GCP VM
+========================================
+
+use GCP  Cloud shell
+- Set project name properly
+ gcloud config set project <name of porject>
+
+- Set zone and region to us-central1-a ( it supports Intel Hasswell cpu with Virtualization)
+ gcloud config set compute/zone us-central1-a
+
+ gcloud config set compute/region us-central1
+
+
+- Create a boot disk.
+ gcloud compute disks create disk1 --image-project centos-cloud --image-family centos-7 --zone us-central1-a
+
+
+-Create image with License.
+gcloud compute images create nested-vm-image --source-disk=disk1 --source-disk-zone=us-central1-a --licenses=https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx
+
+
+-Delete source disk, as it is no longer needed.
+gcloud compute disks delete disk1 --zone us-central1-a
+
+
+
+- Create instance.
+
+gcloud compute instances create example-nested-vm --zone us-central1-a \
+   --min-cpu-platform "Intel Haswell" \
+   --machine-type n1-standard-4 \
+   --image nested-vm-image
+   
+- SSH into the vm
+gcloud compute ssh example-nested-vm --zone us-central1-a
+
+- Confirm nested virtualization is enabled (should get lines with word "vmx").
+grep -E --color 'vmx|svm' /proc/cpuinfo
+
+
+-Install kubectl
+{
+  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+  chmod +x ./kubectl
+  sudo mv ./kubectl /usr/local/bin/kubectl
+  kubectl version --client
+}
+
+
+-Install VirtualBox
+{
+  sudo yum -y install kernel-devel kernel-headers make patch gcc wget
+  sudo wget https://download.virtualbox.org/virtualbox/rpm/el/virtualbox.repo -P /etc/yum.repos.d
+  sudo yum -y install VirtualBox-6.1
+  systemctl status vboxdrv
+  
+}
+
+
+-Install Minikube
+{
+  curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube
+  sudo cp minikube /usr/bin/
+}
+
+-Install docker
+sudo yum -y install docker
+
+- Install git
+sudo yum -y install git
+
+-Start Minikube ( wait for a line showing : Done! kubectl is now configured to use "minikube"
+minikube start
+
+verify cluster:
+
+kubectl cluster-info

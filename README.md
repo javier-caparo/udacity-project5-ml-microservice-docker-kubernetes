@@ -61,7 +61,7 @@ _run_kubernetes.sh_: runs the container in kubernetes and forwards the container
 ### Prerequisites
 
 * Install _hadolint_ following the instructions [here](https://github.com/hadolint/hadolint) or the easy way:
-```
+```bash
 wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
 chmod +x /bin/hadolint
 ``` 
@@ -79,7 +79,7 @@ $> make setup
 $> source ~/.devops/bin/activate
 ```
 * To install python dependencies just run :
-```
+```bash
 $> make install
 ```
 ### Lint tests
@@ -92,15 +92,15 @@ $> make lint
 ### Running the application
 
 * Standalone: 
-    ```
+    ```bash
     $> python app.py
     ```
 * Run in Docker: 
-    ```
+    ```bash
     $> ./run_docker.sh
     ```
 * Run in Kubernetes: 
-    ```
+    ```bash
     $> ./run_kubernetes.sh
     ```
 

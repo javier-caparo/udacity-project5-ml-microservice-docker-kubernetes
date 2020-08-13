@@ -31,7 +31,6 @@ jobs:
                         nvm install node
                         npm install jsonlint -g
                         jsonlint *.json 	# json file lint
-	
                     
               - run:
                     name: install dependencies

@@ -17,4 +17,4 @@ sudo docker run -it --name ml-microservice -p 8000:80 ml-microservice
 
 # Step 4: 
 # Verify that container is running
-# sudo docker ps
+sudo docker ps

@@ -65,7 +65,7 @@ _run_kubernetes.sh_: runs the container in kubernetes and forwards the container
 wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
 chmod +x /bin/hadolint
 ``` 
-* Install docker
+* Install docker ( recommendation: use AWS Cloud9 since docker comes by default on the EC2 created by this service)
 * Install kubernetes. Additionally to run kubernetes locally you have to install Minikube which allows you to run a single-node Kubernetes cluster inside a local VM.
 
 ### Setting up the environment
@@ -75,12 +75,12 @@ chmod +x /bin/hadolint
 * To set up the  python virtual environment:  installing python dependencies just run the following commands
 
 ```bash
-$> make setup
-$> source ~/.devops/bin/activate
+python3 -m venv ~/.devops
+source ~/.devops/bin/activate
 ```
 * To install python dependencies just run :
 ```bash
-$> make install
+make install
 ```
 ### Lint tests
 * To perform the lint tests , execute ``` make link ```to pass hadolint on the Dockerfile and pylint on the python file app.py

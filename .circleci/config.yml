@@ -30,8 +30,15 @@ jobs:
                         # Install hadolint
                         wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 &&\
                         chmod +x /bin/hadolint
-                        # This install jsonlint - A flexible json validation for python web development
-                        npm install jsonlint -g
+              - run:
+                    name: Update npm
+                    command: 'sudo npm install -g npm@latest'
+            
+              - run:
+                    name: install npm dependencies
+                    command: |
+                         npm install jsonlint -g
+                         
               - save_cache:
                     paths:
                         - ./venv

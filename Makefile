@@ -15,9 +15,6 @@ install:
 	pip install --upgrade pip &&\
 		pip install -U setuptools pip &&\
 		pip install -r requirements.txt
-	# this install hadolint
-	wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 &&\ 
-	    sudo	chmod +x /bin/hadolint
 	# This install jsonlint - A flexible json validation for python web development
 	npm install jsonlint -g
 

@@ -13,9 +13,11 @@ sudo kubectl run ml-microservice --image=$dockerpath --port=80 --labels="app=ml-
 
 # Step 3:
 # List kubernetes pods
-sudo kubectl get pods
+sleep 10; echo "PODs creation in progress..just some seconds to be in running state"
+sleep 50; sudo kubectl get pods
 
 # Step 4:
 # Forward the container port to a host
+sleep 5; echo "Forwarding the container port to a host"
 export POD_NAME=$(sudo kubectl get pod -l app=ml-microservice -o jsonpath="{.items[0].metadata.name}")
-sudo kubectl port-forward $POD_NAME 8000:8000
+sudo kubectl port-forward $POD_NAME 8000:80

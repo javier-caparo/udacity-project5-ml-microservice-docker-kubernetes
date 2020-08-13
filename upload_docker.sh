@@ -11,7 +11,7 @@ export dockerpath=javiercaparo/udacity-project-ml-microservice-docker-kubernetes
 # Step 2:  
 # Authenticate & tag
 echo "Docker ID and Image: $dockerpath"
-sudo docker login --username=javiercaparo --email=javier.caparo@outlook.com
+sudo docker login --username=javiercaparo
 sudo docker tag javiercaparo/udacity-project-ml-microservice-docker-kubernetes $dockerpath
 
 # Step 3:

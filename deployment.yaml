@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-microservice
+  labels:
+    app: ml-microservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ml-microservice
+  template:
+    metadata:
+      labels:
+        app: ml-microservice
+    spec:
+      containers:
+      - name: ml-microservice
+        image: javiercaparo/udacity-project-ml-microservice-docker-kubernetes:latest
+        ports:
+        - containerPort: 80

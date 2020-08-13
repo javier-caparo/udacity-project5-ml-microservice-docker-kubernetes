@@ -15,6 +15,11 @@ install:
 	pip install --upgrade pip &&\
 		pip install -U setuptools pip &&\
 		pip install -r requirements.txt
+	# this install hadolint
+	wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64
+	chmod +x /bin/hadolint
+	# This install jsonlint - A flexible json validation for python web development
+	npm install jsonlint -g
 
 test:
 	# Additional, optional, tests could go here
@@ -28,5 +33,7 @@ lint:
 	# This is a linter for Python source code linter: https://www.pylint.org/
 	# This should be run from inside a virtualenv
 	pylint --disable=R,C,W1203 app.py
+	# json file lint
+	jsonlint *.json
 
 all: install lint test

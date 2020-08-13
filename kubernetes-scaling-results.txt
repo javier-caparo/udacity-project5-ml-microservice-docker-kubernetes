@@ -1,0 +1,70 @@
+===================
+Scaling up Results:
+===================
+
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get nodes
+NAME       STATUS   ROLES    AGE   VERSION
+minikube   Ready    master   35m   v1.18.3
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+ml-microservice-684d7d5b69-ftjjr   1/1     Running   0          34m
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get deployment
+NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+ml-microservice   1/1     1            1           34m
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ date
+Thu Aug 13 07:07:24 UTC 2020
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl scale --current-replicas=1 --replicas=3 deployment/ml-microservice
+deployment.apps/ml-microservice scaled
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+ml-microservice-684d7d5b69-2qsmc   1/1     Running   0          10s
+ml-microservice-684d7d5b69-6r7qc   1/1     Running   0          10s
+ml-microservice-684d7d5b69-ftjjr   1/1     Running   0          35m
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+
+
+
+deletign a pod --> goes to 3 replicas again
+
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl delete pod ml-microservice-684d7d5b69-ftjjr
+pod "ml-microservice-684d7d5b69-ftjjr" deleted
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ date
+Thu Aug 13 07:10:18 UTC 2020
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+ml-microservice-684d7d5b69-2qsmc   1/1     Running   0          2m52s
+ml-microservice-684d7d5b69-6r7qc   1/1     Running   0          2m52s
+ml-microservice-684d7d5b69-hphpt   1/1     Running   0          29s
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+
+==============
+Scaling down:
+==============
+
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ date
+Thu Aug 13 07:11:07 UTC 2020
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+ml-microservice-684d7d5b69-2qsmc   1/1     Running   0          4m10s
+ml-microservice-684d7d5b69-6r7qc   1/1     Running   0          4m10s
+ml-microservice-684d7d5b69-hphpt   1/1     Running   0          107s
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl scale --current-replicas=3 --replicas=2 deployment/ml-microservice
+deployment.apps/ml-microservice scaled
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS        RESTARTS   AGE
+ml-microservice-684d7d5b69-2qsmc   1/1     Running       0          4m41s
+ml-microservice-684d7d5b69-6r7qc   1/1     Running       0          4m41s
+ml-microservice-684d7d5b69-hphpt   0/1     Terminating   0          2m18s
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ date
+Thu Aug 13 07:12:25 UTC 2020
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+ml-microservice-684d7d5b69-2qsmc   1/1     Running   0          4m54s
+ml-microservice-684d7d5b69-6r7qc   1/1     Running   0          4m54s
+[javier_caparo@example-nested-vm udacity-project5-ml-microservice-docker-kubernetes]$

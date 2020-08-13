@@ -22,6 +22,10 @@ jobs:
                     - v1-dependencies-
 
               - run:
+                    name: Update npm
+                    command: 'apt install nodejs npm'
+                    
+              - run:
                     name: install dependencies
                     command: |
                         python3 -m venv venv
@@ -30,10 +34,7 @@ jobs:
                         # Install hadolint
                         wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.18.0/hadolint-Linux-x86_64 &&\
                         chmod +x /bin/hadolint
-              - run:
-                    name: Update npm
-                    command: 'sudo npm install -g npm@latest'
-            
+
               - run:
                     name: install npm dependencies
                     command: |

@@ -23,7 +23,7 @@ sleep 5; echo "Forwarding the container port to a host"
 export POD_NAME=$(kubectl get pod -l app=ml-microservice -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward $POD_NAME 8000:80
 
-# Another way : creating a deployment to perform scale up/down with pods
+# Another way : creating a deployment to perform scale up/down with podsd 
 #kubectl create deployment ml-microservice --image=$dockerpath 
 #Step 5:
 # Scaling up & down

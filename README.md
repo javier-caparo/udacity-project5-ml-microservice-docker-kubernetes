@@ -52,7 +52,7 @@ _prediction_1.json_ & _prediction_2.json_ --> entrance parameters in json format
 
 ### The docker container
 
-The Dockerfile to build the container is provided, but you can also download the latest version of the container from [my docker hub](insert here link on docker hub). 
+The Dockerfile to build the container is provided, but you can also download the latest version of the container from [my docker hub](https://hub.docker.com/r/javiercaparo/udacity-project-ml-microservice-kubernetes). 
 
 To build your container locally if you prefer you get these files
 * run_docker.sh: builds and runs the docker container with the app

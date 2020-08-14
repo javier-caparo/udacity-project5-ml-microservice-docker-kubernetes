@@ -5,34 +5,44 @@ The goal is to operationalize a machine learning microservice written in python 
 
 ## Project Overview
 
-here you will find the steps and requirements to operationalize the machine learning python microservice used in Udacity's DevOps Cloud Nanodegree Project # 5. More information about the project can be found in the original [github repository](https://github.com/udacity/DevOps_Microservices/tree/master/project-ml-microservice-kubernetes).
+here you will find the steps and requirements to operationalize the machine learning python microservice used in Udacity's DevOps Cloud Nanodegree Project # 5. More information about the project can be found in the original [github repository](https://hub.docker.com/r/javiercaparo/udacity-project-ml-microservice-kubernetes).
 
-The microservice is build as a python app and the repository includes the necessary files to run build and run the app in a docker container, push the docker image to docker hub , and use that image in a minikube Kubernetes deployment .
+The microservice is build as a python app and the repository includes the necessary files to build and run the app in a docker container, push the docker image to docker hub , and use that image in a minikube Kubernetes deployment .
+
+## What development tools or IDE were used in this project
+
+* AWS CLoud9 as IDE and to use docker in his EC2 VM created.
+* GCP VM as Kubernetes minikube host
 
 ### Project files
 
 This is the file structure of this repository. More detail of each one of these files in the below sections.
 
-├── app.py  
-├── Dockerfile
-├── gcp-minikube-steps.txt
-├── LICENSE
-├── make_prediction.sh 
-├── Makefile 
-├── model_data  
-│   ├── boston_housing_prediction.joblib
-|   └──  housing.csv
-├── output_txt_files  
-│   ├── docker_out.txt
-|   ├── kubernetes_out.txt
-│   └── kubernetes-scaling-results.txt  
-├── prediction_1.json 
-├── prediction_1.json 
-├── README.md  
-├── requirements.txt  
-├── run_docker.sh  
-├── run_kubernetes.sh  
-└── upload_docker.sh  
+| Filename | Description |
+| ------ | ------ |
+| app.py | the app written in python using flask exposing an api to perform a house renting prediction based on certain parameters |
+| Dockerfile | used to build the docker image |
+| gcp-minikube-steps.txt | How to install minikube in GCP VM |
+| LICENSE | license file |
+| make_prediction.sh | script to perform the posts to the api app |
+| Makefile |  |
+| model_data| Directory of csv data and ml model to perform the predictions |
+|    boston_housing_prediction.joblib | model trained before |
+|    housing.csv | csv data  |
+| output_txt_files | Directory of results  |
+|    docker_out.txt | output of run predictions on docker container   |
+|    kubernetes_out.txt | output of run predictions on kubernetes pods in minikube  |
+|    kubernetes-scaling-results.txt | results of K8s scale up and down |
+| prediction_1.json | json data for the 1st request |
+| prediction_2.json | json data for the 2do request |
+| README.md | this README.md file |
+| requirements.txt|  dependencies used in the app and to perform the lint|
+| run_docker.sh | script to build the docker image and run it locally |
+| run_kubernetes.sh | script to depploy the containerized app in kubernetes minikube |
+| upload_docker.sh| script to push the docker image to docker hub |
+| .circleci| directory to use circleci for CI/CD|
+|     config.yml | circleci config yaml file to check dependencies and lint in CircleCI to perform CI/CD|
+
 
 ### The app app.py
 
@@ -112,4 +122,26 @@ $> make lint
             title = "Sklearn Prediction Home"
 			html = f"<h3>{title}</h3>"
 ```
+2. Docker issues
+if docker build fails with: 
+Error processing tar file(exit status 1): write /usr/local/lib/python3.7/site-packages/scipy/misc/face.dat: no space left on device
 
+fix:
+```bash
+docker system df
+```
+check if RECLAIMABLE amount is greater than zero (that would definitely the case) then run command
+```bash
+docker system prune -a
+```
+
+#### Kubernetes + Google Cloud
+
+See [KUBERNETES.md](https://github.com/joemccann/dillinger/blob/master/KUBERNETES.md)
+
+License
+----
+
+MIT
+
+**Free Software, Hell Yeah!**

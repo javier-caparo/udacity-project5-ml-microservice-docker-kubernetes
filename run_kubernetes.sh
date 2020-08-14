@@ -10,9 +10,7 @@ export dockerpath=javiercaparo/udacity-project-ml-microservice-kubernetes:latest
 # Step 2
 # Run the Docker Hub container with kubernetes
 kubectl run ml-microservice --image=$dockerpath --port=80 --labels="app=ml-microservice"
-# Another way creating deployment and service resources
-#kubectl create deployment ml-microservice --image=$dockerpath 
-#kubectl expose deployment ml-microservice --type=NodePort --port=80
+
 
 # Step 3:
 # List kubernetes pods
@@ -25,7 +23,8 @@ sleep 5; echo "Forwarding the container port to a host"
 export POD_NAME=$(kubectl get pod -l app=ml-microservice -o jsonpath="{.items[0].metadata.name}")
 kubectl port-forward $POD_NAME 8000:80
 
-
+# Another way : creating a deployment to perform scale up/down with pods
+#kubectl create deployment ml-microservice --image=$dockerpath 
 #Step 5:
 # Scaling up & down
 # - Scale up:

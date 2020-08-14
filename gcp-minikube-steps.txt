@@ -15,7 +15,7 @@ use GCP  Cloud shell
  gcloud compute disks create disk1 --image-project centos-cloud --image-family centos-7 --zone us-central1-a
 
 
--Create image with License.
+-Create image with License. ( be patient , take some minutes...)
 gcloud compute images create nested-vm-image --source-disk=disk1 --source-disk-zone=us-central1-a --licenses=https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx
 
 
@@ -23,16 +23,16 @@ gcloud compute images create nested-vm-image --source-disk=disk1 --source-disk-z
 gcloud compute disks delete disk1 --zone us-central1-a
 
 
-
 - Create instance.
-
 gcloud compute instances create example-nested-vm --zone us-central1-a \
    --min-cpu-platform "Intel Haswell" \
    --machine-type n1-standard-4 \
    --image nested-vm-image
-   
+
+
 - SSH into the vm
 gcloud compute ssh example-nested-vm --zone us-central1-a
+
 
 - Confirm nested virtualization is enabled (should get lines with word "vmx").
 grep -E --color 'vmx|svm' /proc/cpuinfo
@@ -69,9 +69,12 @@ sudo yum -y install docker
 - Install git
 sudo yum -y install git
 
--Start Minikube ( wait for a line showing : Done! kubectl is now configured to use "minikube"
+-Start Minikube ( wait for a line showing : Done! kubectl is now configured to use "minikube")
 minikube start
 
-verify cluster:
-
+- Verify cluster:
 kubectl cluster-info
+
+- Verify minikube version & status
+minikube version
+minikube status
